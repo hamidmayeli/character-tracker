@@ -1,69 +1,30 @@
-# React + TypeScript + Vite
+# Character tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Have you ever lost the name of a random side character of your book? Or details like their contribution or other seems less important events. Well you can add it to this tracker and find it immediately next time you saw their name.
 
-Currently, two official plugins are available:
+## Reading multiple books
+Don't worry you can have multiple instance of this [app](https://charactertracker.mayeli.uk). As this is a WPA simply install it multiple times.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can install the Character Tracker as a Progressive Web App (PWA) on your device for quick access.
 
-## Expanding the ESLint configuration
+### Android
+1. Open the Character Tracker in Chrome.
+2. Tap the three-dot menu in the top-right corner.
+3. Select **Add to Home screen**.
+4. Confirm the installation.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### iOS
+1. Open the Character Tracker in Safari.
+2. Tap the **Share** button at the bottom of the screen.
+3. Select **Add to Home Screen**.
+4. Tap **Add** to confirm.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Once installed, you can launch the app directly from your home screen.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Features
+- Name
+- Aliases - Russian characters have so many of them
+- Description - Free text to add details
+- Relation with other characters
+- Jumping to other characters 
+- Search by name and aliases
