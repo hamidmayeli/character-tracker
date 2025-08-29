@@ -59,12 +59,21 @@ function ShowCharacters() {
           {selected.aliases.length > 0 && <p className="mb-1"><span className="font-semibold">Aliases:</span> {selected.aliases.join(', ')}</p>}
           <p className="mb-1"><span className="font-semibold">Description:</span> {selected.description || 'No description.'}</p>
           {selected.relatedTo.length > 0 && (
-            <p className="mb-1"><span className="font-semibold">Related To:</span> {selected.relatedTo.map(id => {
-              const rel = characters.find(c => c.id === id);
-              return rel ? rel.name : id;
-            }).join(', ')}</p>
+            <div className="mb-1">
+              <span className="font-semibold">Related To:</span>
+              <ul className="list-disc ml-6">
+                {selected.relatedTo.map((rel, idx) => {
+                  const relChar = characters.find(c => c.id === rel.characterId);
+                  return (
+                    <li key={idx}>
+                      {relChar ? relChar.name : rel.characterId} ({rel.relation})
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           )}
-          <div>
+          <div className="flex gap-2">
             <button
                 onClick={() => navigate(`/character/${selected.id}`)}
             >

@@ -6,7 +6,7 @@ const initialState = {
   name: '',
   aliases: '',
   description: '',
-  relatedTo: [] as string[],
+  relatedTo: [] as { characterId: string; relation: string }[],
 };
 
 function NewCharacter() {
@@ -26,22 +26,36 @@ function NewCharacter() {
           name: found.name,
           aliases: found.aliases.join(', '),
           description: found.description,
-          relatedTo: found.relatedTo,
+          relatedTo: found.relatedTo || [],
         });
         setEditMode(true);
       }
     }
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name === 'relatedTo') {
-      const options = (e.target as HTMLSelectElement).selectedOptions;
-      const selected = Array.from(options).map(opt => opt.value);
-      setCharacter((prev) => ({ ...prev, relatedTo: selected }));
-    } else {
-      setCharacter((prev) => ({ ...prev, [name]: value }));
+    setCharacter((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Add related character
+  const [relatedId, setRelatedId] = useState('');
+  const [relation, setRelation] = useState('');
+  const handleAddRelated = () => {
+    if (relatedId && relation) {
+      setCharacter((prev) => ({
+        ...prev,
+        relatedTo: [...prev.relatedTo, { characterId: relatedId, relation }],
+      }));
+      setRelatedId('');
+      setRelation('');
     }
+  };
+  const handleRemoveRelated = (index: number) => {
+    setCharacter((prev) => ({
+      ...prev,
+      relatedTo: prev.relatedTo.filter((_, i) => i !== index),
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,16 +64,10 @@ function NewCharacter() {
       ...character,
       id: editMode && id ? id : '',
       aliases: character.aliases.split(',').map(a => a.trim()).filter(a => a),
+      relatedTo: character.relatedTo,
     };
-    if (editMode && id) {
-      // Update character
-      const updated = allCharacters.map(c => c.id === id ? newCharacter : c);
-      localStorage.setItem('characters', JSON.stringify(updated));
-      alert('Character updated!');
-    } else {
-      storage.saveCharacter(newCharacter);
-      alert('Character created!');
-    }
+    
+    storage.saveCharacter(newCharacter);
     setCharacter(initialState);
     setAllCharacters(storage.getCharacters());
     navigate('/');
@@ -90,23 +98,37 @@ function NewCharacter() {
         </div>
         <div>
           <label htmlFor="relatedTo">Related To:</label>
-          <select
-            id="relatedTo"
-            name="relatedTo"
-            title="Select related characters"
-            multiple
-            value={character.relatedTo}
-            onChange={handleChange}
-            style={{ minWidth: '200px', minHeight: '40px' }}
-          >
-            {allCharacters
-              .filter(c => c.id !== character.id)
-              .map(c => (
+          <div className="flex gap-2 mb-2">
+            <select
+              id="relatedId"
+              value={relatedId}
+              onChange={e => setRelatedId(e.target.value)}
+              title="Select character"
+            >
+              <option value="">Select character</option>
+              {allCharacters.map(c => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
-          </select>
+            </select>
+            <input
+              type="text"
+              value={relation}
+              onChange={e => setRelation(e.target.value)}
+              placeholder="Relation (e.g. friend, enemy)"
+              title="Enter relation"
+            />
+            <div><button type="button" onClick={handleAddRelated}>Add</button></div>
+          </div>
+          <ul>
+            {character.relatedTo.map((rel, idx) => (
+              <li key={idx} className="flex gap-2 items-center">
+                <span>{allCharacters.find(c => c.id === rel.characterId)?.name || rel.characterId} ({rel.relation})</span>
+                <button type="button" onClick={() => handleRemoveRelated(idx)}>Remove</button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <button type="submit" className="mt-4">Create Character</button>
+        <button type="submit" className="mt-4">Save</button>
       </form>
     </div>
   );
