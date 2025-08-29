@@ -1,5 +1,6 @@
 interface IStorage {
   saveCharacter: (character: ICharacter) => void;
+  deleteCharacter: (id: string) => void;
   getCharacters: () => ICharacter[];
 }
 

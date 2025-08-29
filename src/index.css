@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
+}
+
+body {
+  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
 }
 
 a {
@@ -24,21 +29,6 @@ a:hover {
   color: #535bf2;
 }
 
-
-/* Empty file for custom styles */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 h1,
 h2{
   @apply text-2xl font-bold mb-4;
@@ -46,7 +36,7 @@ h2{
 
 input,
 textarea {
-  @apply border border-gray-300 rounded p-2 w-full box-border mb-4;
+  @apply border border-gray-300 dark:border-gray-700 rounded p-2 w-full box-border mb-4;
 }
 
 button {
@@ -54,9 +44,9 @@ button {
 }
 
 select {
-  @apply border border-gray-300 rounded p-2 w-full box-border mb-4;
+  @apply border border-gray-300 dark:border-gray-700 rounded p-2 w-full box-border mb-4;
 }
 
 option {
-  @apply border border-gray-300 rounded p-2 w-full box-border mb-0.5;
+  @apply border border-gray-300 dark:border-gray-700 rounded p-2 w-full box-border mb-0.5;
 }

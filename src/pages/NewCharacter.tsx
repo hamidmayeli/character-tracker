@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../storage';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const initialState = {
   name: '',
@@ -9,12 +10,28 @@ const initialState = {
 };
 
 function NewCharacter() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [character, setCharacter] = useState(initialState);
   const [allCharacters, setAllCharacters] = useState<ICharacter[]>([]);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    setAllCharacters(storage.getCharacters());
-  }, []);
+    const chars = storage.getCharacters();
+    setAllCharacters(chars);
+    if (id) {
+      const found = chars.find(c => c.id === id);
+      if (found) {
+        setCharacter({
+          name: found.name,
+          aliases: found.aliases.join(', '),
+          description: found.description,
+          relatedTo: found.relatedTo,
+        });
+        setEditMode(true);
+      }
+    }
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -30,19 +47,27 @@ function NewCharacter() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newCharacter: ICharacter = {
-        ...character,
-        id: '',
-        aliases: character.aliases.split(',').map(a => a.trim()).filter(a => a),
+      ...character,
+      id: editMode && id ? id : '',
+      aliases: character.aliases.split(',').map(a => a.trim()).filter(a => a),
     };
-    storage.saveCharacter(newCharacter);
-    alert('Character created!');
+    if (editMode && id) {
+      // Update character
+      const updated = allCharacters.map(c => c.id === id ? newCharacter : c);
+      localStorage.setItem('characters', JSON.stringify(updated));
+      alert('Character updated!');
+    } else {
+      storage.saveCharacter(newCharacter);
+      alert('Character created!');
+    }
     setCharacter(initialState);
     setAllCharacters(storage.getCharacters());
+    navigate('/');
   };
 
   return (
     <div className='mx-auto'>
-      <h2>New Character</h2>
+      <h2>{editMode ? 'Edit Character' : 'New Character'}</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>

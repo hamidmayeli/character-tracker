@@ -7,29 +7,37 @@ function App() {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    document.body.style.background = theme === 'dark' ? '#222' : '#fff';
-    document.body.style.color = theme === 'dark' ? '#fff' : '#222';
-  }, [theme]);
+    // Theme should be defaulted to system
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    updateTheme(systemTheme);
+  }, []);
+
+  const updateTheme = (newTheme: string) => {
+    setTheme(newTheme);
+    document.body.setAttribute('data-theme', newTheme);
+  };
 
   return (
     <BrowserRouter>
-      <header style={{ padding: '1rem', background: theme === 'dark' ? '#333' : '#eee', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <nav>
-          <Link to="/" style={{ marginRight: '1rem' }}>Show Characters</Link>
-          <Link to="/new">New Character</Link>
+      <header className="flex justify-between items-center px-6 py-4 mb-8 bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
+        <nav className="flex gap-4">
+          <Link to="/" className="text-gray-800 dark:text-gray-100 hover:underline">Show Characters</Link>
+          <Link to="/character" className="text-gray-800 dark:text-gray-100 hover:underline">New Character</Link>
         </nav>
         <button
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          style={{ padding: '0.5rem 1rem', borderRadius: '4px', border: 'none', background: theme === 'dark' ? '#444' : '#ddd', color: theme === 'dark' ? '#fff' : '#222', cursor: 'pointer' }}
+          onClick={() => updateTheme(theme === 'light' ? 'dark' : 'light')}
+          className="px-4 py-2 rounded !bg-transparent font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          title="Toggle theme"
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
       </header>
-      <div className='p-4'>
+  <div className="p-4">
         <Routes>
-        <Route path="/" element={<ShowCharacters />} />
-        <Route path="/new" element={<NewCharacter />} />
-      </Routes>
+          <Route path="/" element={<ShowCharacters />} />
+          <Route path="/character" element={<NewCharacter />} />
+          <Route path="/character/:id" element={<NewCharacter />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );
