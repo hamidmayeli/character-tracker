@@ -21,8 +21,11 @@ function App() {
     <BrowserRouter>
       <header className="flex justify-between items-center px-6 py-4 mb-8 bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
         <nav className="flex gap-4">
-          <Link to="/" className="text-gray-800 dark:text-gray-100 hover:underline">Show Characters</Link>
-          <Link to="/character" className="text-gray-800 dark:text-gray-100 hover:underline">New Character</Link>
+          <div>
+            <img src="/logo.svg" alt="Logo" className='w-8 h-auto' />
+          </div>
+          <Link to="/" className="text-gray-800 dark:text-gray-100 hover:underline">List</Link>
+          <Link to="/character" className="text-gray-800 dark:text-gray-100 hover:underline">New</Link>
         </nav>
         <button
           onClick={() => updateTheme(theme === 'light' ? 'dark' : 'light')}

@@ -49,4 +49,5 @@ select {
 
 option {
   @apply border border-gray-300 dark:border-gray-700 rounded p-2 w-full box-border mb-0.5;
+  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
 }

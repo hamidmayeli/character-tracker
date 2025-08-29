@@ -65,7 +65,7 @@ function ShowCharacters() {
                 {selected.relatedTo.map((rel, idx) => {
                   const relChar = characters.find(c => c.id === rel.characterId);
                   return (
-                    <li key={idx}>
+                    <li key={idx} onClick={() => setSelectedId(rel.characterId)} role="button">
                       {relChar ? relChar.name : rel.characterId} ({rel.relation})
                     </li>
                   );
