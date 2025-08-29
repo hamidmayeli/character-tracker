@@ -25,10 +25,12 @@ function App() {
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
       </header>
-      <Routes>
+      <div className='p-4'>
+        <Routes>
         <Route path="/" element={<ShowCharacters />} />
         <Route path="/new" element={<NewCharacter />} />
       </Routes>
+      </div>
     </BrowserRouter>
   );
 }

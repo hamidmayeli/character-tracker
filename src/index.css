@@ -38,3 +38,25 @@ a:hover {
     background-color: #f9f9f9;
   }
 }
+
+h1,
+h2{
+  @apply text-2xl font-bold mb-4;
+}
+
+input,
+textarea {
+  @apply border border-gray-300 rounded p-2 w-full box-border mb-4;
+}
+
+button {
+  @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded;
+}
+
+select {
+  @apply border border-gray-300 rounded p-2 w-full box-border mb-4;
+}
+
+option {
+  @apply border border-gray-300 rounded p-2 w-full box-border mb-0.5;
+}
