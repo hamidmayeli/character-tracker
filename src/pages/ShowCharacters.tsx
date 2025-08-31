@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { storage } from '../storage';
 import { useNavigate } from 'react-router-dom';
+import { t } from '../i18n/texts'; // <-- Add this import
 
 function ShowCharacters() {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
@@ -23,7 +24,7 @@ function ShowCharacters() {
   const selected = characters.find(c => c.id === selectedId);
 
   const deleteCharacter = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this character?')) {
+    if (window.confirm(t('deleteConfirm'))) { // <-- Use t() here
       storage.deleteCharacter(id);
       setCharacters(storage.getCharacters());
       setSelectedId(null);
@@ -32,13 +33,13 @@ function ShowCharacters() {
 
   return (
     <div>
-      <h2>Characters</h2>
+      <h2>{t('characters')}</h2> {/* <-- Use t() here */}
       <input
         type="text"
-        placeholder="Filter by name or alias"
+        placeholder={t('filterPlaceholder')} // <-- Use t() here
         value={filter}
         onChange={e => setFilter(e.target.value)}
-        title="Type to filter characters by name or alias"
+        title={t('filterTitle')} // <-- Use t() here
       />
       <ul className="list-none p-0 border rounded border-gray-300 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
         {filtered.map(c => (
@@ -51,16 +52,16 @@ function ShowCharacters() {
             {c.aliases.length > 0 && <span className="ml-2">({c.aliases.join(', ')})</span>}
           </li>
         ))}
-        {filtered.length === 0 && <li className="px-4 py-2">No characters found.</li>}
+        {filtered.length === 0 && <li className="px-4 py-2">{t('noCharacters')}</li>} {/* <-- Use t() here */}
       </ul>
       {selected && (
         <div className="mt-6 p-4 border rounded border-gray-300 dark:border-gray-700 flex flex-col gap-4">
           <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{selected.name}</h3>
-          {selected.aliases.length > 0 && <p className="mb-1"><span className="font-semibold">Aliases:</span> {selected.aliases.join(', ')}</p>}
-          <p className="mb-1"><span className="font-semibold">Description:</span> {selected.description || 'No description.'}</p>
+          {selected.aliases.length > 0 && <p className="mb-1"><span className="font-semibold">{t('aliases')}</span> {selected.aliases.join(', ')}</p>} {/* <-- Use t() here */}
+          <p className="mb-1"><span className="font-semibold">{t('description')}</span> {selected.description || t('noDescription')}</p>
           {selected.relatedTo.length > 0 && (
             <div className="mb-1">
-              <span className="font-semibold">Related To:</span>
+              <span className="font-semibold">{t('relatedTo')}</span> {/* <-- Use t() here */}
               <ul className="list-disc ml-6">
                 {selected.relatedTo.map((rel, idx) => {
                   const relChar = characters.find(c => c.id === rel.characterId);
@@ -77,13 +78,13 @@ function ShowCharacters() {
             <button
                 onClick={() => navigate(`/character/${selected.id}`)}
             >
-                Edit
+                {t('edit')}
             </button>
 
             <button
                 onClick={() => deleteCharacter(selected.id)}
             >
-                Delete
+                {t('delete')}
             </button>
           </div>
         </div>

@@ -2,6 +2,8 @@ interface IStorage {
   saveCharacter: (character: ICharacter) => void;
   deleteCharacter: (id: string) => void;
   getCharacters: () => ICharacter[];
+  getSelectedLanguage: () => "fa" | "en";
+  setSelectedLanguage: (lang: "fa" | "en") => void;
 }
 
 interface IRelatedCharacter {

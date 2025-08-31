@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { t } from '../i18n/texts';
 import { storage } from '../storage';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -75,37 +76,37 @@ function NewCharacter() {
 
   return (
     <div className='mx-auto'>
-      <h2>{editMode ? 'Edit Character' : 'New Character'}</h2>
+  <h2>{editMode ? t('editTitle') : t('newCharacter')}</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name:</label>
-          <input id="name" name="name" value={character.name} onChange={handleChange} required title="Enter the character's name" />
+          <label htmlFor="name">{t('name')}</label>
+          <input id="name" name="name" value={character.name} onChange={handleChange} required title={t('nameTitle')} />
         </div>
         <div>
-          <label htmlFor="aliases">Aliases (comma separated):</label>
+          <label htmlFor="aliases">{t('aliasesComma')}</label>
           <input
             id="aliases"
             name="aliases"
             value={character.aliases}
             onChange={handleChange}
-            placeholder="e.g. Alias1, Alias2, Alias3"
-            title="Enter aliases separated by commas"
+            placeholder={t('aliasesPlaceholder')}
+            title={t('aliasesTitle')}
           />
         </div>
         <div>
-          <label htmlFor="description">Description:</label>
-          <textarea id="description" name="description" value={character.description} onChange={handleChange} title="Enter a description for the character" />
+          <label htmlFor="description">{t('description')}</label>
+          <textarea id="description" name="description" value={character.description} onChange={handleChange} title={t('descriptionTitle')} />
         </div>
         <div>
-          <label htmlFor="relatedTo">Related To:</label>
+          <label htmlFor="relatedTo">{t('relatedTo')}</label>
           <div className="flex gap-2 mb-2">
             <select
               id="relatedId"
               value={relatedId}
               onChange={e => setRelatedId(e.target.value)}
-              title="Select character"
+              title={t('relatedIdTitle')}
             >
-              <option value="">Select character</option>
+              <option value="">{t('relatedIdTitle')}</option>
               {allCharacters.map(c => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
@@ -114,21 +115,21 @@ function NewCharacter() {
               type="text"
               value={relation}
               onChange={e => setRelation(e.target.value)}
-              placeholder="Relation (e.g. friend, enemy)"
-              title="Enter relation"
+              placeholder={t('relationPlaceholder')}
+              title={t('relationTitle')}
             />
-            <div><button type="button" onClick={handleAddRelated}>Add</button></div>
+            <div><button type="button" onClick={handleAddRelated}>{t('add')}</button></div>
           </div>
           <ul>
             {character.relatedTo.map((rel, idx) => (
               <li key={idx} className="flex gap-2 items-center">
                 <span>{allCharacters.find(c => c.id === rel.characterId)?.name || rel.characterId} ({rel.relation})</span>
-                <button type="button" onClick={() => handleRemoveRelated(idx)}>Remove</button>
+                <button type="button" onClick={() => handleRemoveRelated(idx)}>{t('remove')}</button>
               </li>
             ))}
           </ul>
         </div>
-        <button type="submit" className="mt-4">Save</button>
+  <button type="submit" className="mt-4">{t('save')}</button>
       </form>
     </div>
   );

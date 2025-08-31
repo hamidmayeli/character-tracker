@@ -41,5 +41,11 @@ export const storage: IStorage = {
     const characters = storage.getCharacters();
     const updated = characters.filter(c => c.id !== id);
     localStorage.setItem('characters', JSON.stringify(updated));
-  }
+  },
+  getSelectedLanguage: function (): "fa" | "en" {
+    return (localStorage.getItem('selectedLanguage') || 'en') as "fa" | "en";
+  },
+  setSelectedLanguage: function (lang: "fa" | "en"): void {
+    localStorage.setItem('selectedLanguage', lang);
+  },
 };
