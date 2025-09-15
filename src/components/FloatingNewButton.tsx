@@ -41,7 +41,7 @@ export default function FloatingNewButton() {
       aria-label={t('newCharacter')}
       title={t('newCharacter')}
       onClick={() => navigate('/character')}
-      className={`fixed z-50 bottom-4 right-4 md:bottom-6 md:right-6 rounded-full px-4 py-3 shadow-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'}`}
+      className={`fixed z-50 bottom-8 right-8 md:bottom-6 md:right-6 rounded-full! px-4 py-3 shadow-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'}`}
     >
       +
     </button>
