@@ -39,19 +39,7 @@ function NewCharacter() {
     setCharacter((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Add related character
-  const [relatedId, setRelatedId] = useState('');
-  const [relation, setRelation] = useState('');
-  const handleAddRelated = () => {
-    if (relatedId && relation) {
-      setCharacter((prev) => ({
-        ...prev,
-        relatedTo: [...prev.relatedTo, { characterId: relatedId, relation }],
-      }));
-      setRelatedId('');
-      setRelation('');
-    }
-  };
+  // ...existing code...
   const handleRemoveRelated = (index: number) => {
     setCharacter((prev) => ({
       ...prev,
@@ -98,36 +86,53 @@ function NewCharacter() {
           <textarea id="description" name="description" value={character.description} onChange={handleChange} title={t('descriptionTitle')} />
         </div>
         <div>
-          <label htmlFor="relatedTo">{t('relatedTo')}</label>
-          <div className="flex gap-2 mb-2">
-            <select
-              id="relatedId"
-              value={relatedId}
-              onChange={e => setRelatedId(e.target.value)}
-              title={t('relatedIdTitle')}
-            >
-              <option value="">{t('relatedIdTitle')}</option>
-              {allCharacters.map(c => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
-            <input
-              type="text"
-              value={relation}
-              onChange={e => setRelation(e.target.value)}
-              placeholder={t('relationPlaceholder')}
-              title={t('relationTitle')}
-            />
-            <div><button type="button" onClick={handleAddRelated}>{t('add')}</button></div>
-          </div>
-          <ul>
+          <label>{t('relatedTo')}</label>
+          <ul className="flex flex-col gap-2 mb-2">
             {character.relatedTo.map((rel, idx) => (
               <li key={idx} className="flex gap-2 items-center">
-                <span>{allCharacters.find(c => c.id === rel.characterId)?.name || rel.characterId} ({rel.relation})</span>
-                <button type="button" onClick={() => handleRemoveRelated(idx)}>{t('remove')}</button>
+                <select
+                  value={rel.characterId}
+                  onChange={e => {
+                    const newId = e.target.value;
+                    setCharacter(prev => ({
+                      ...prev,
+                      relatedTo: prev.relatedTo.map((r, i) => i === idx ? { ...r, characterId: newId } : r)
+                    }));
+                  }}
+                  title={t('relatedIdTitle')}
+                >
+                  <option value="">{t('relatedIdTitle')}</option>
+                  {allCharacters.map(c => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  value={rel.relation}
+                  onChange={e => {
+                    const newRel = e.target.value;
+                    setCharacter(prev => ({
+                      ...prev,
+                      relatedTo: prev.relatedTo.map((r, i) => i === idx ? { ...r, relation: newRel } : r)
+                    }));
+                  }}
+                  placeholder={t('relationPlaceholder')}
+                  title={t('relationTitle')}
+                />
+                <button type="button" onClick={() => handleRemoveRelated(idx)} className="mb-4">{t('remove')}</button>
               </li>
             ))}
           </ul>
+          <button
+            type="button"
+            onClick={() => setCharacter(prev => ({
+              ...prev,
+              relatedTo: [...prev.relatedTo, { characterId: '', relation: '' }]
+            }))}
+            className="mb-2"
+          >
+            {t('add')}
+          </button>
         </div>
   <button type="submit" className="mt-4">{t('save')}</button>
       </form>

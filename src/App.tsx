@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import NewCharacter from './pages/NewCharacter';
 import ShowCharacters from './pages/ShowCharacters';
 import { storage } from './storage';
+import FloatingNewButton from './components/FloatingNewButton';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -70,6 +71,7 @@ function App() {
           <Route path="/character/:id" element={<NewCharacter />} />
         </Routes>
       </div>
+      <FloatingNewButton />
     </BrowserRouter>
   );
 }
