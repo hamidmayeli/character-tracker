@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { t } from '../i18n/texts';
 import { storage } from '../storage';
 import { useParams, useNavigate } from 'react-router-dom';
+import { capitalizeWords } from '../utils';
 
 const initialState = {
   name: '',
@@ -24,8 +25,8 @@ function NewCharacter() {
       const found = chars.find(c => c.id === id);
       if (found) {
         setCharacter({
-          name: found.name,
-          aliases: found.aliases.join(', '),
+          name: capitalizeWords(found.name),
+          aliases: found.aliases.map(alias => capitalizeWords(alias)).join(', '),
           description: found.description,
           relatedTo: found.relatedTo || [],
         });
@@ -36,7 +37,18 @@ function NewCharacter() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setCharacter((prev) => ({ ...prev, [name]: value }));
+    
+    let processedValue = value;
+    
+    // Auto-capitalize name as user types
+    if (name === 'name') {
+      processedValue = capitalizeWords(value);
+    } else if (name === 'aliases') {
+      // For aliases, capitalize words but preserve commas and spaces for typing
+      processedValue = capitalizeWords(value);
+    }
+    
+    setCharacter((prev) => ({ ...prev, [name]: processedValue }));
   };
 
   // ...existing code...
@@ -52,7 +64,12 @@ function NewCharacter() {
     const newCharacter: ICharacter = {
       ...character,
       id: editMode && id ? id : '',
-      aliases: character.aliases.split(',').map(a => a.trim()).filter(a => a),
+      name: capitalizeWords(character.name),
+      aliases: character.aliases
+        .split(',')
+        .map(a => a.trim())
+        .filter(a => a)
+        .map(a => capitalizeWords(a)),
       relatedTo: character.relatedTo,
     };
     

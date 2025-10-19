@@ -1,0 +1,83 @@
+{
+  "name": "Character Tracker Development",
+  // Docker image with specific version - updated by Dependabot
+  "image": "node:22.20.0",
+  
+  // Features to add to the dev container
+  "features": {
+    // Node feature not needed because the base image already includes Node.js
+    "ghcr.io/devcontainers/features/git:1.3.4": {},
+    "ghcr.io/devcontainers/features/github-cli:1.0.15": {},
+    "ghcr.io/devcontainers/features/common-utils:2.5.4": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true,
+      "username": "node",
+      "userUid": "1000",
+      "userGid": "1000"
+    }
+  },
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-json",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "ms-vscode.vscode-css-peek",
+        "ms-vscode.theme-tomorrowkit",
+        "ms-playwright.playwright",
+        "ms-vscode.vscode-npm-script"
+      ],
+      "settings": {
+        "typescript.preferences.preferTypeOnlyAutoImports": true,
+        "typescript.suggest.autoImports": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "editor.formatOnSave": true,
+        "emmet.includeLanguages": {
+          "javascript": "javascriptreact",
+          "typescript": "typescriptreact"
+        },
+        "tailwindCSS.experimental.classRegex": [
+          ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+          ["classnames\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+          ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+        ]
+      }
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "forwardPorts": [5173, 4173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "4173": {
+      "label": "Vite Preview Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // Use 'postCreateCommand' to run commands after the container is created
+  // Run the post-create script which will handle pnpm installation
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  // Configure remoteUser
+  "remoteUser": "node",
+
+  // Mount the local git config and ssh keys (optional)
+  "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+  ]
+}
