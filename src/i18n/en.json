@@ -9,6 +9,10 @@
   "filterPlaceholder": "Filter by name or alias",
   "filterTitle": "Type to filter characters by name or alias",
   "noCharacters": "No characters found.",
+  "noCharactersDescription": "Get started by creating your first character.",
+  "createFirstCharacter": "Create First Character",
+  "noMatchingCharacters": "No matching characters",
+  "tryDifferentSearch": "Try a different search term or clear the filter.",
   "aliases": "Aliases:",
   "description": "Description:",
   "noDescription": "No description.",
@@ -29,5 +33,9 @@
   "relationTitle": "Enter relation",
   "add": "Add",
   "remove": "Remove",
-  "save": "Save"
+  "save": "Save",
+  "cancel": "Cancel",
+  "characterCreated": "Character created successfully!",
+  "characterUpdated": "Character updated successfully!",
+  "characterDeleted": "Character deleted successfully!"
 }

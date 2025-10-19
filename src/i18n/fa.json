@@ -9,6 +9,10 @@
   "filterPlaceholder": "فیلتر بر اساس نام یا نام مستعار",
   "filterTitle": "برای فیلتر کردن شخصیت‌ها بر اساس نام یا نام مستعار تایپ کنید",
   "noCharacters": "شخصیتی پیدا نشد.",
+  "noCharactersDescription": "با ساخت اولین شخصیت خود شروع کنید.",
+  "createFirstCharacter": "ساخت اولین شخصیت",
+  "noMatchingCharacters": "شخصیت مطابقی یافت نشد",
+  "tryDifferentSearch": "عبارت جستجوی دیگری را امتحان کنید یا فیلتر را پاک کنید.",
   "aliases": "نام‌های مستعار:",
   "description": "توضیحات:",
   "noDescription": "توضیحی وجود ندارد.",
@@ -29,5 +33,9 @@
   "relationTitle": "رابطه را وارد کنید",
   "add": "افزودن",
   "remove": "حذف کردن",
-  "save": "ذخیره"
+  "save": "ذخیره",
+  "cancel": "لغو",
+  "characterCreated": "شخصیت با موفقیت ایجاد شد!",
+  "characterUpdated": "شخصیت با موفقیت به‌روزرسانی شد!",
+  "characterDeleted": "شخصیت با موفقیت حذف شد!"
 }
