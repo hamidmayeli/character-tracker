@@ -15,9 +15,6 @@ updates:
     commit-message:
       prefix: "chore(deps):"
       include: "scope"
-    labels:
-      - "dependencies"
-      - "npm"
     groups:
       frontend-group:
         patterns:
@@ -38,7 +35,3 @@ updates:
     commit-message:
       prefix: "chore(devcontainer):"
       include: "scope"
-    labels:
-      - "dependencies"
-      - "devcontainer"
-      - "docker"
