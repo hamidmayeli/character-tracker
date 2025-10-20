@@ -18,6 +18,10 @@ updates:
     labels:
       - "dependencies"
       - "npm"
+    groups:
+      frontend-group:
+        patterns:
+          - "*"
 
   # Enable version updates for Docker images in devcontainer
   - package-ecosystem: "docker"
@@ -38,22 +42,3 @@ updates:
       - "dependencies"
       - "devcontainer"
       - "docker"
-
-  # Enable version updates for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 5
-    reviewers:
-      - "hamidmayeli"
-    assignees:
-      - "hamidmayeli"
-    commit-message:
-      prefix: "chore(ci):"
-      include: "scope"
-    labels:
-      - "dependencies"
-      - "github-actions"
