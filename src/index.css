@@ -20,6 +20,10 @@ body {
   @apply bg-white text-black dark:bg-gray-900 dark:text-white;
 }
 
+#root {
+  @apply flex flex-col-reverse md:flex-col min-h-screen;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
