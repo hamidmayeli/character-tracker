@@ -35,23 +35,23 @@ function App() {
   return (
     <ToastProvider>
       <BrowserRouter>
-        <header className="sticky bottom-0 md:top-0 md:bottom-auto z-40 flex justify-between items-center px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-t md:border-t-0 md:border-b border-gray-300 dark:border-gray-700 shadow-sm transition-all duration-300">
+        <header className="sticky bottom-0 md:top-0 md:bottom-auto z-40 flex justify-between items-center bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-t md:border-t-0 md:border-b border-gray-300 dark:border-gray-700 shadow-sm transition-all duration-300">
           <div className="flex items-center gap-4">
             <div>
-              <img src="/logo.svg" alt={t('logoAlt')} className='w-8 h-auto' />
+              <img src="/logo.svg" alt={t('logoAlt')} className='w-12 m-4 h-auto' />
             </div>
             
             {/* Desktop Navigation */}
-            <nav className="flex gap-4 items-center">
+            <nav className="flex gap-4 items-center h-24">
               <Link 
                 to="/" 
-                className="text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                className="p-4 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
               >
                 {t('list')}
               </Link>
               <Link 
                 to="/character" 
-                className="text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                className="p-4 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
               >
                 {t('new')}
               </Link>
@@ -66,7 +66,7 @@ function App() {
                 onChange={changeLanguage}
                 name="language"
                 id="language"
-                className="m-0! text-sm"
+                className="m-0! text-sm h-24"
                 >
                 {languagesList.map(lang => (
                   <option key={lang} value={lang}>
@@ -76,7 +76,7 @@ function App() {
               </select>
               <button
                 onClick={() => updateTheme(theme === 'light' ? 'dark' : 'light')}
-                className="rounded !bg-transparent font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+                className=" h-24 rounded !bg-transparent font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
                 title={t('toggleTheme')}
                 >
                 {theme === 'light' ? '🌙' : '☀️'}
