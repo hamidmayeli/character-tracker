@@ -45,13 +45,26 @@ function ShowCharacters() {
           {filter ? `${filtered.length} / ${characters.length}` : characters.length}
         </Badge>
       </div>
-      <input
-        type="text"
-        placeholder={t('filterPlaceholder')}
-        value={filter}
-        onChange={e => setFilter(e.target.value)}
-        title={t('filterTitle')}
-      />
+      
+      <div className="flex gap-1">
+        <input
+          type="text"
+          placeholder={t('filterPlaceholder')}
+          value={filter}
+          onChange={e => setFilter(e.target.value)}
+          title={t('filterTitle')}
+        />
+
+        {filter ? (
+          <button 
+            className="h-10"
+            onClick={() => setFilter("")}
+          >
+            X
+          </button>
+        ) : null}
+      </div>
+
       {characters.length === 0 ? (
         <EmptyState
           title={t('noCharacters')}
@@ -94,6 +107,7 @@ function ShowCharacters() {
           )}
         </>
       )}
+
       {selected && (
         <div className="mt-6 p-6 border rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
           <div className="flex items-center gap-4 mb-6">
@@ -144,17 +158,18 @@ function ShowCharacters() {
           )}
           
           <div className="flex gap-2">
-            <button
-              onClick={() => navigate(`/character/${selected.id}`)}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
+            <button onClick={() => navigate(`/character/${selected.id}`)}>
               {t('edit')}
             </button>
-            <button
-              onClick={() => deleteCharacter(selected.id)}
-              className="bg-red-600 hover:bg-red-700 text-white"
-            >
+            
+            <button onClick={() => deleteCharacter(selected.id)}>
               {t('delete')}
+            </button>
+
+            <div className="grow"></div>
+
+            <button onClick={() => setSelectedId(null)}>
+              X
             </button>
           </div>
         </div>
