@@ -4,9 +4,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      interval: monthly
     open-pull-requests-limit: 10
     reviewers:
       - "hamidmayeli"
@@ -24,9 +22,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "/.devcontainer"
     schedule:
-      interval: "weekly"
-      day: "monday" 
-      time: "09:00"
+      interval: monthly
     open-pull-requests-limit: 5
     reviewers:
       - "hamidmayeli"
