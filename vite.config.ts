@@ -18,10 +18,13 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      includeAssets: ['apple-touch-icon.png'],
       manifest: {
         name: 'Character Tracker',
         short_name: 'CharTracker',
-        start_url: '.',
+        description: 'Track your RPG characters',
+        id: '/',
+        start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#317EFB',
@@ -29,12 +32,20 @@ export default defineConfig({
           {
             src: 'icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
             src: 'icon-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       }
